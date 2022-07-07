@@ -95,10 +95,9 @@ This can fix plugin errors when parsing files outside the current working direct
 Type: `'full' | 'declarationOnly' | 'transpileOnly' | 'none'`<br>
 Default: `'full'`
 
-* `'full'` always transpile code and emit declarations
-* `'declarationOnly'` only emit declarations, raw typescript code will be passed to next plugin
-  * this is useful if the next plugin is `@rollup/plugin-babel` and you have it set up to transpile typescript via `babel-plugin-typescript`
-  * this is effectively the same as the `tsc --emitDeclarationOnly && babel src --out-dir dist`
+* `'full'` (default) Always transpile code and emit declarations
+* `'declarationOnly'` Only emit declarations. Raw typescript code will be passed to next plugin.
+  * this is useful if the next plugin is `@rollup/plugin-babel` and you have it set up to transpile typescript via `babel-plugin-typescript`. This is effectively the same as the `tsc --emitDeclarationOnly && babel src --out-dir dist` pattern
   * Also useful if you're having typescript emit declaration for your js file, but don't have any ts files to transpile
 * `'transpileOnly'` transpile code, but don't emit declarations. Type errors will still be displayed
 * `'none'` no transpilation or declarations. Raw typescript code will be passed to the next plugin. Type errors will still be displayed
