@@ -13,10 +13,11 @@ import type {
   WatchOptions
 } from 'typescript';
 
-import { RollupTypescriptOptions } from '../../types';
+import { RollupTypescriptOptions, TranspilerModes } from '../../types';
 import diagnosticToWarning from '../diagnostics/toWarning';
 
 import {
+  compilerOptionsSetByMode,
   CompilerOptions,
   DEFAULT_COMPILER_OPTIONS,
   EnumCompilerOptions,
@@ -110,7 +111,8 @@ const configCache = new Map() as import('typescript').Map<ExtendedConfigCacheEnt
 export function parseTypescriptConfig(
   ts: typeof import('typescript'),
   tsconfig: RollupTypescriptOptions['tsconfig'],
-  compilerOptions: PartialCompilerOptions
+  compilerOptions: PartialCompilerOptions,
+  transpilerMode: TranspilerModes
 ): TypeScriptConfig {
   /* eslint-disable no-undefined */
   const cwd = process.cwd();
@@ -136,7 +138,11 @@ export function parseTypescriptConfig(
       },
       ts.sys,
       basePath,
-      { ...compilerOptions, ...FORCED_COMPILER_OPTIONS },
+      {
+        ...compilerOptions,
+        ...compilerOptionsSetByMode(transpilerMode),
+        ...FORCED_COMPILER_OPTIONS
+      },
       tsConfigPath,
       undefined,
       undefined,
@@ -154,7 +160,7 @@ export function parseTypescriptConfig(
       },
       ts.sys,
       basePath,
-      FORCED_COMPILER_OPTIONS,
+      { ...compilerOptionsSetByMode(transpilerMode), ...FORCED_COMPILER_OPTIONS },
       tsConfigPath,
       undefined,
       undefined,

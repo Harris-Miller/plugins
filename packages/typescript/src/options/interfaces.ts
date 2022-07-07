@@ -1,6 +1,6 @@
 import type { CompilerOptions } from 'typescript';
 
-import { PartialCompilerOptions } from '../../types';
+import { PartialCompilerOptions, TranspilerModes } from '../../types';
 
 export { EnumCompilerOptions, JsonCompilerOptions } from '../../types';
 export { PartialCompilerOptions };
@@ -22,4 +22,14 @@ export const FORCED_COMPILER_OPTIONS: Partial<CompilerOptions> = {
   emitDeclarationOnly: false,
   // Preventing Typescript from resolving code may break compilation
   noResolve: false
+};
+
+export const compilerOptionsSetByMode = (
+  transpilerMode: TranspilerModes
+): Partial<CompilerOptions> => {
+  return {
+    declaration: transpilerMode === 'full' || transpilerMode === 'declarationOnly',
+    emitDeclarationOnly: transpilerMode === 'declarationOnly',
+    noEmit: transpilerMode === 'none'
+  };
 };

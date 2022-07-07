@@ -20,6 +20,7 @@ export const getPluginOptions = (options: RollupTypescriptOptions) => {
     include,
     filterRoot,
     transformers,
+    transpilerMode,
     tsconfig,
     tslib,
     typescript,
@@ -39,6 +40,7 @@ export const getPluginOptions = (options: RollupTypescriptOptions) => {
     typescript: typescript || defaultTs,
     tslib: tslib || getTsLibPath(),
     transformers,
+    transpilerMode: transpilerMode || 'full',
     outputToFilesystem
   };
 };

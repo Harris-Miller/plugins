@@ -26,6 +26,7 @@ export default function typescript(options: RollupTypescriptOptions = {}): Plugi
     include,
     outputToFilesystem,
     transformers,
+    transpilerMode,
     tsconfig,
     tslib,
     typescript: ts
@@ -34,7 +35,7 @@ export default function typescript(options: RollupTypescriptOptions = {}): Plugi
   const emittedFiles = new Map<string, string>();
   const watchProgramHelper = new WatchProgramHelper();
 
-  const parsedOptions = parseTypescriptConfig(ts, tsconfig, compilerOptions);
+  const parsedOptions = parseTypescriptConfig(ts, tsconfig, compilerOptions, transpilerMode);
   const filter = createFilter(include || ['*.ts+(|x)', '**/*.ts+(|x)'], exclude, {
     resolve: filterRoot ?? parsedOptions.options.rootDir
   });

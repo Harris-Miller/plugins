@@ -35,6 +35,8 @@ interface TypeCheckerTransformerFactory<T extends TransformerStage> {
   factory(typeChecker: TypeChecker): StagedTransformerFactory<T>;
 }
 
+export type TranspilerModes = 'full' | 'declarationOnly' | 'transpileOnly' | 'none';
+
 export interface RollupTypescriptPluginOptions {
   /**
    * If using incremental this is the folder where the cached
@@ -74,6 +76,14 @@ export interface RollupTypescriptPluginOptions {
    * TypeScript custom transformers
    */
   transformers?: CustomTransformerFactories;
+  /**
+   * Mode of transpilation
+   * * `'full'`(default) - transpile code and declarations
+   * * `'declarationOnly'` - Raw typescript files will be passed to next plugin, and .d.ts files will be emitted as assets
+   * * `'transpileOnly'` - no .d.ts files, normal code transpilation
+   * * `'none'` - only typechecking (useful) - Raw typescript files will be passed to next plugin
+   */
+  transpilerMode?: TranspilerModes;
   /**
    * When set to false, force non-cached files to always be emitted in the output directory.output
    * If not set, will default to true with a warning.
