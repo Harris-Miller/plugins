@@ -17,9 +17,6 @@ export const FORCED_COMPILER_OPTIONS: Partial<CompilerOptions> = {
   // Always use tslib
   noEmitHelpers: true,
   importHelpers: true,
-  // Typescript needs to emit the code for us to work with
-  noEmit: false,
-  emitDeclarationOnly: false,
   // Preventing Typescript from resolving code may break compilation
   noResolve: false
 };
